@@ -1,0 +1,12 @@
+import requests
+
+url = "https://eucrm.cc.capillarytech.com/arya/api/v1/ask-aira-service/rule_expr/log?page=1&limit=10"
+
+payload = {}
+headers = {
+  'Cookie': 'CC=KnSx4ZZPRNDeKQ1DmCnJ8HaUgw8jQil08jcKrMNmnOmhassXAWXpk5icmelZcCSe; CT=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6WyI2MDU4NTI0NSJdLCJvcmdJRCI6MCwiZXhwIjoxNzIzNTI0MTUwLCJpYXQiOjE3MjM0Mzc3NTAsImlzcyI6ImNhcGlsbGFyeXRlY2guY29tIiwiYXVkIjoiY2FwaWxsYXJ5LGludG91Y2gsYXJ5YSxyZW9uLGFwcHMiLCJzb3VyY2UiOiJXRUJBUFAifQ.wRi-883c33JGJ-vTH0tE24N5xEY1kr_jZJVwFIolr0c; OID=0; CC=KnSx4ZZPRNDeKQ1DmCnJ8HaUgw8jQil08jcKrMNmnOmhassXAWXpk5icmelZcCSe; CT=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6WyI2MDU4NTI0NSJdLCJvcmdJRCI6MCwiZXhwIjoxNzIzNTI0MTUwLCJpYXQiOjE3MjM0Mzc3NTAsImlzcyI6ImNhcGlsbGFyeXRlY2guY29tIiwiYXVkIjoiY2FwaWxsYXJ5LGludG91Y2gsYXJ5YSxyZW9uLGFwcHMiLCJzb3VyY2UiOiJXRUJBUFAifQ.wRi-883c33JGJ-vTH0tE24N5xEY1kr_jZJVwFIolr0c; OID=0'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
