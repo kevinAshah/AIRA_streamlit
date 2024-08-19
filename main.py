@@ -12,20 +12,23 @@ def main():
         st.session_state.authenticated = False
 
     if not st.session_state.authenticated:
-        cookie = st.text_input("Enter your Password", type="password")
+        cookie = st.text_input("Enter Cookie Header", type="password")
         if st.button("Authenticate"):
             if cookie:
                 st.session_state.authenticated = True
+                st.session_state.headers = {'Cookie': cookie}
+                st.session_state.payload = {}
             else:
                 st.error("Cookie cannot be empty!")
     else:
         st.sidebar.title("Navigation")
-        selection = st.sidebar.radio("Select a Bot: ", ["Content Generation Bot", "Rule Writing Bot"])
+        selection = st.sidebar.radio("Select: ", ["Content Generation Bot", "Rule Writing Bot"])
 
         if selection == "Content Generation Bot":
-            content_generation_bot()
+            content_generation_bot(st.session_state.headers, st.session_state.payload)
         elif selection == "Rule Writing Bot":
-            rule_writing_bot()
+            rule_writing_bot(st.session_state.headers, st.session_state.payload)
+
 
 if __name__ == "__main__":
     main()

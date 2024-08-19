@@ -2,22 +2,20 @@ import streamlit as st
 import pandas as pd
 from utils import fetch_data, format_suggestions
 
-def content_generation_bot():
+def content_generation_bot(headers, payload):
     st.subheader("Content Generation Bot")
 
     # Cookie input specific to this bot
-    cookie = st.text_input("Enter Cookie Header for Content Generation Bot", type="password")
-    payload = {}
-    url = "https://eucrm.cc.capillarytech.com/arya/api/v1/ask-aira-service/content_gen/log?page=1&limit=10"
+    # cookie = st.text_input("Enter Cookie Header for Content Generation Bot", type="password")
+    # payload = {}
+    url = "https://eucrm.cc.capillarytech.com/arya/api/v1/ask-aira-service/content_gen/log?page=1&limit=30"
 
     if st.button("Fetch Data"):
-        if cookie:
-            headers = {'Cookie': cookie}
-            data = fetch_data(url, headers, payload)
-            if data and data['success']:
-                logs = data.get('logs', [])
+        data = fetch_data(url, headers, payload)
+        if data and data['success']:
+            logs = data.get('logs', [])
 
-                if logs:
+            if logs:
                     df = pd.DataFrame(logs)
                     df['suggestions'] = df['suggestions'].apply(format_suggestions)
                     df = df[['query', 'suggestions', 'userRefId', 'orgId', 'updated_at']]
@@ -36,9 +34,5 @@ def content_generation_bot():
 
                     st.dataframe(formatted_df, use_container_width=True)
 
-                else:
-                    st.warning("No logs found in the API response.")
             else:
-                st.error("Failed to fetch data.")
-        else:
-            st.error("Cookie cannot be empty!")
+                    st.warning("No logs found in the API response.")

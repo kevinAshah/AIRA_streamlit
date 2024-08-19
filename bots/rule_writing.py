@@ -2,16 +2,14 @@ import streamlit as st
 import pandas as pd
 from utils import fetch_data
 
-def rule_writing_bot():
+def rule_writing_bot(headers, payload):
     st.subheader("Rule Writing Bot")
 
-    url = "https://crm-nightly-new.cc.capillarytech.com/arya/api/v1/ask-aira-service/rule_expr/log?page=1&limit=10"
-    cookie = st.text_input("Enter Cookie Header for Rule Writing Bot", type="password")
-    payload = {}
+    url = "https://eucrm.cc.capillarytech.com/arya/api/v1/ask-aira-service/rule_expr/log?page=1&limit=100"
+    # cookie = st.text_input("Enter Cookie Header for Rule Writing Bot", type="password")
+    # payload = {}
 
-    if st.button("Fetch Data"):
-        if cookie:
-            headers = {'Cookie': cookie}    
+    if st.button("Fetch Data"):  
             data = fetch_data(url, headers, payload)
             if data and data['success']:
                 logs = data.get('logs', [])
@@ -26,7 +24,3 @@ def rule_writing_bot():
                     st.dataframe(df, use_container_width=True)
                 else:
                     st.warning("No logs found in the API response.")
-            else:
-                st.error("Failed to fetch data.")
-        else:
-            st.error("Cookie cannot be empty!")
